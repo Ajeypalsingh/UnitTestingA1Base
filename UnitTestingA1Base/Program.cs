@@ -40,7 +40,7 @@ app.MapGet("/recipes/byIngredient", (string? name, int? id) =>
         HashSet<Recipe> recipes = bll.GetRecipesByIngredient(id, name); 
         return Results.Ok(recipes);
     }
-    catch (ArgumentException ex)
+    catch (ArgumentNullException ex)
     {
         return Results.BadRequest(new { message = ex.Message });
     }

@@ -9,20 +9,21 @@ namespace UnitTestingA1Base.Data
     /// Note that multi-table queries (e.g. Includes methods) are not available for these collections and manual joins are required.
     /// </summary>
 
+
     public class AppStorage
     {
         private int _idCount = 256;
         public HashSet<Recipe> Recipes { get; set; }
         public HashSet<DietaryRestriction> DietaryRestrictions { get; set; }
         public HashSet<Ingredient> Ingredients { get; set; }
-        public HashSet<IngredientRestriction> IngredientRestrictions { get; set; }  
+        public HashSet<IngredientRestriction> IngredientRestrictions { get; set; }
         public HashSet<RecipeIngredient> RecipeIngredients { get; set; }
-        
+
         public int GeneratePrimaryKey()
         {
             return _idCount++;
         }
-        public AppStorage ()
+        public AppStorage()
         {
             Recipes = new HashSet<Recipe>
         {
