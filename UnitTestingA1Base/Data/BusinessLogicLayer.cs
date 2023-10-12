@@ -42,15 +42,23 @@ namespace UnitTestingA1Base.Data
         }
 
         public HashSet<Recipe> GetRecipesByDiet(int? id, string? name)
-        {
+         {
             DietaryRestriction dietaryRestriction;
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
             if (id != null)
             {
-                dietaryRestriction = _appStorage.DietaryRestrictions.First(d => d.Id == id);
-            }
-            else if (name != null)
+                dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(d => d.Id == id);
+                if (dietaryRestriction == null)
+                {
+                    return recipes;
+                }
+            } else if (name != null)
             {
-                dietaryRestriction = _appStorage.DietaryRestrictions.First(d => d.Name.Contains(name));
+                dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(d => d.Name.Contains(name));
+                if (dietaryRestriction == null)
+                {
+                    return recipes;
+                }
             }
             else
             {
@@ -70,19 +78,20 @@ namespace UnitTestingA1Base.Data
                                             .ToList();
 
             // Retrieve all recipies using above recipie ids
-            HashSet<Recipe> recipies = _appStorage.Recipes
-                                         .Where(r => recieIds.Contains(r.Id))
-                                         .ToHashSet();
+             recipes = _appStorage.Recipes
+                                  .Where(r => recieIds.Contains(r.Id))
+                                  .ToHashSet();
 
-            return recipies;
+            return recipes;
         }
 
-        public HashSet<Recipe> GetAllRecipies(int? id, string? name)
+        public HashSet<Recipe> GetRecipies(int? id, string? name)
         {
             HashSet<Recipe> recipies;
             if (id != null)
             {
                 recipies = _appStorage.Recipes.Where(r => r.Id == id).ToHashSet();
+
             }
             else if (name != null)
             {
@@ -90,7 +99,7 @@ namespace UnitTestingA1Base.Data
             }
             else
             {
-                throw new ArgumentException("Either ID or Name must be provided.");
+                recipies = _appStorage.Recipes;
             }
 
             return recipies;

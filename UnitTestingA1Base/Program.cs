@@ -85,7 +85,7 @@ app.MapGet("/recipes", (string? name, int? id) =>
 {
     try
     {
-        HashSet<Recipe> recipes = bll.GetAllRecipies(id, name);
+        HashSet<Recipe> recipes = bll.GetRecipies(id, name);
         return Results.Ok(recipes);
     }
     catch (ArgumentException ex)
